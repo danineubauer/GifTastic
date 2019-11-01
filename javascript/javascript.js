@@ -35,22 +35,6 @@ displayGifs();
 
 
 
-function integerVsNot() { 
-    var num = prompt("Input a number:");
-    if ( num % 1 ===0) { 
-        console.log("number is whole")
-    } else if ( num % 1 < 1) { 
-        console.log("number is an int")
-    } else { 
-        console.log("you didn't put a valid number")
-    }
-    //     console.log("number is an integer");
-    // }
-
-}
-
-integerVsNot();
-
 
 //when user clicks on button - page should grab 10 static non-animated gifs.
 
