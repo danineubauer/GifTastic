@@ -1,56 +1,64 @@
-$(window).ready(function () {
+$(window).ready(function() {
     var queryURL;
-    var foodImg;
     var apiCallValue;
     var rating = [];
-    var gifPlayArr = [];
     var gifStillArr = [];
+    var gifPlayArr = [];
 
 
     //Event listener for buttons: 
 
-    $("button").on("click", function () {
-        
-        //variable of the attribute: 
-        var foodName = $(this).attr("data-name");
-        console.log(foodName);
-        
-        queryURL = "http://api.giphy.com/v1/gifs/search?q=" + foodName + "&apikey=l1dcAyazOlf93XAFgWIJPDaWyzwMIvvT&limit=5";
-                
+    $(document).on("click", ".foodbtn", function() {
+
+        //replaces all spaces with "+" 
+        apiCallValue = ($(this).data("name").replace(/ /g, "+"));
+        console.log(apiCallValue);
+        console.log("gifplay", gifPlayArr)
+        console.log("gifstill", gifStillArr)
+
+
+
+        queryURL = "http://api.giphy.com/v1/gifs/search?q=" + apiCallValue + "&apikey=l1dcAyazOlf93XAFgWIJPDaWyzwMIvvT&limit=10";
+
         $.ajax({
             url: queryURL,
             method: "GET"
-        }).then(function (response) {
-            for (let i = 0; i < 10; i++) {
-                //Add still images
-                $("#gifDisplay").prepend("<img src=" + response.data[i].images.original_still.url + ">");
-                $("#gifDisplay").prepend("<p>Rating: " + response.data[i].rating.toUpperCase() + "</p>");
+        }).then(function (response) { 
+            for (var i = 0; i < response.data.length; i++) { 
+                //push gif url to arrays - still and rating:
                 console.log(response);
-                console.log("response", response.data[i].images.downsized)
+
+                gifStillArr.push(response.data[i].images.downsized_still.url);
+                rating.push(response.data[i].rating.toUpperCase());
+
+                //prepend gif rating and img:
+                $("#gifInsert").prepend("<p> Rating: " + (rating[rating.length - 1]) + "<p>")
+                $("#gifInsert").prepend("<img id=" + (gifStillArr.length - 1) + " src=" + gifStillArr[(gifStillArr.length-1)] + ">");     
+                gifPlayArr.push(response.data[i].images.downsized.url);
             }
         });
     });
+    
+    $(document).on("click", "img", function () { 
+        if ($(this).attr("src") == gifStillArr[this.id]) { 
+            $(this).attr("src", function () { 
+                return gifPlayArr[this.id];
+            })
+        } else {
+            $(this).attr("src", function () { 
+                return gifStillArr[this.id];
+            });
+        };
+    });
 
-    $("#gifDisplay").on("click", function() { 
-        console.log("image clicked");
-        ("#gifDisplay").empty();
-
-    })
-
+    $("#submitButton").on("click", function(enter) { 
+        enter.preventDefault();
+        var newBtnVal = $("#submitForm").val().trim(); 
+        var newBtn = $("<button>");
+        newBtn.addClass("foodbtn"); 
+        newBtn.data("name", newBtnVal);
+        newBtn.text(newBtnVal);
+        $("#buttonInsert").append(newBtn);
+        $("#submitForm").val("");
+    });
 });
-
-
-
-
-
-
-
-//when user clicks on button - page should grab 10 static non-animated gifs.
-
-
-
-//click on gif = animate. 
-//another click on gif = stop/ 
-//display rating under each gif/
-
-//add form to page that takes value from user input box and adds it to topics array. 
