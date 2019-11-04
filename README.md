@@ -1,5 +1,5 @@
 # GifTastic
-Working with APIs 
+Working with APIs \
 By Danielle Neubauer \
 https://danineubauer.github.io/GifTastic/
 
