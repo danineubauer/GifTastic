@@ -18,7 +18,7 @@ $(window).ready(function() {
 
 
 
-        queryURL = "http://api.giphy.com/v1/gifs/search?q=" + apiCallValue + "&apikey=l1dcAyazOlf93XAFgWIJPDaWyzwMIvvT&limit=10";
+        queryURL = "https://api.giphy.com/v1/gifs/search?q=" + apiCallValue + "&apikey=l1dcAyazOlf93XAFgWIJPDaWyzwMIvvT&limit=10";
 
         $.ajax({
             url: queryURL,
