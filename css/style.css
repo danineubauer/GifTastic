@@ -1,6 +1,27 @@
 
+body { 
+    background: url( ../assets/background.jpg) no-repeat center center fixed;
+    -webkit-background-size:
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family: 'Abril Fatface', cursive;
+    font-size: 30px;
+    text-shadow: 2px;
+    margin-left: 30px;
+}
+
+
 img { 
     height: 270px;
+    width: 300px;
+}
+
+.container { 
+    width: 600px;
+}
+
+.searchgif { 
     width: 300px;
 }
 
